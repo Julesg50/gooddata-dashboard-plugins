@@ -27,7 +27,7 @@ function generateGooddataSharePackagesEntries() {
         .reduce((acc, [pkgName, _version]) => {
             acc[pkgName] = {
                 singleton: true,
-                requiredVersion: false
+                requiredVersion: false,
             };
             return acc;
         }, {});
@@ -218,12 +218,16 @@ module.exports = (_env, argv) => {
                             import: "react", // the "react" package will be used a provided and fallback module
                             shareKey: "react", // under this name the shared module will be placed in the share scope
                             singleton: true, // only a single version of the shared module is allowed
-                            requiredVersion: deps.react,
                         },
                         "react-dom": {
                             singleton: true,
-                            requiredVersion: deps["react-dom"],
                         },
+                        "react/jsx-runtime": {
+                            singleton: true,
+                            import: false,
+                            strictVersion: false,
+                        },
+
                         // add all the packages that absolutely need to be shared and singletons because of contexts
                         // change the allowPrereleaseVersions to true if you want to work with alpha or beta versions
                         // beware that alpha and beta versions may break and may contain bugs, use at your own risk
