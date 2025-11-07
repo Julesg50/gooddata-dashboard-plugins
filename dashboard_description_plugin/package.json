@@ -123,8 +123,5 @@
         "webpack-bundle-analyzer": "^4.5.0",
         "webpack-cli": "^4.9.2",
         "webpack-dev-server": "^4.9.1"
-    },
-    "resolutions": {
-        "reselect": "5.1.0"
     }
 }
