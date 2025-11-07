@@ -73,7 +73,7 @@ module.exports = (_env, argv) => {
             // Alias for ESM imports with .js suffix because
             // `import { abc } from "../abc.js"` may be in fact importing from `abc.tsx` file
             extensionAlias: {
-                    ".js": [".ts", ".tsx", ".js", ".jsx"],
+                ".js": [".ts", ".tsx", ".js", ".jsx"],
             },
 
             alias: {
@@ -154,7 +154,7 @@ module.exports = (_env, argv) => {
         {
             ...commonConfig,
             entry: "./src/index.js",
-            experiments: { ...commonConfig.experiments,topLevelAwait: true},
+            experiments: { ...commonConfig.experiments, topLevelAwait: true },
             name: "harness",
             ignoreWarnings: [/Failed to parse source map/], // some of the dependencies have invalid source maps, we do not care that much
             devServer: {
@@ -182,7 +182,7 @@ module.exports = (_env, argv) => {
                 }),
                 new HtmlWebpackPlugin({
                     template: "./src/harness/public/index.html",
-                    scriptLoading: "module"
+                    scriptLoading: "module",
                 }),
             ],
         },
@@ -221,11 +221,15 @@ module.exports = (_env, argv) => {
                             import: "react", // the "react" package will be used a provided and fallback module
                             shareKey: "react", // under this name the shared module will be placed in the share scope
                             singleton: true, // only a single version of the shared module is allowed
-                            requiredVersion: deps.react,
                         },
                         "react-dom": {
                             singleton: true,
-                            requiredVersion: deps["react-dom"],
+                        },
+                        "react/jsx-runtime": {
+                            singleton: true,
+                            requiredVersion: deps["react/jsx-runtime"],
+                            import: false,
+                            strictVersion: false,
                         },
                         // add all the packages that absolutely need to be shared and singletons because of contexts
                         // change the allowPrereleaseVersions to true if you want to work with alpha or beta versions
